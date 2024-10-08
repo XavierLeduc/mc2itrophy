@@ -6,9 +6,7 @@ from selenium.webdriver.support import expected_conditions as EC
 import time
 
 driver = webdriver.Chrome()
-url = "https://www.podcastics.com/podcast/episode/le-marketing-sportif-grand-gagnant-de-lia-2-313767/"
-
-driver.get(url)
+driver.get("https://www.podcastics.com/podcast/episode/le-marketing-sportif-grand-gagnant-de-lia-2-313767/")
 
 try:
 
