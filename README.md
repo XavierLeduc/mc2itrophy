@@ -5,19 +5,19 @@
     <h1 align="center">MC2ITROPHY</h1>
 </p>
 <p align="center">
-    <em><code>❯ REPLACE-ME</code></em>
+    <em><code>❯TROPHY</code></em>
 </p>
 <p align="center">
-	<img src="https://img.shields.io/github/license/XavierLeduc/mc2itrophy?style=flat&logo=opensourceinitiative&logoColor=white&color=0080ff" alt="license">
-	<img src="https://img.shields.io/github/last-commit/XavierLeduc/mc2itrophy?style=flat&logo=git&logoColor=white&color=0080ff" alt="last-commit">
-	<img src="https://img.shields.io/github/languages/top/XavierLeduc/mc2itrophy?style=flat&color=0080ff" alt="repo-top-language">
-	<img src="https://img.shields.io/github/languages/count/XavierLeduc/mc2itrophy?style=flat&color=0080ff" alt="repo-language-count">
+   <img src="https://img.shields.io/github/license/XavierLeduc/mc2itrophy?style=flat&logo=opensourceinitiative&logoColor=white&color=0080ff" alt="license">
+   <img src="https://img.shields.io/github/last-commit/XavierLeduc/mc2itrophy?style=flat&logo=git&logoColor=white&color=0080ff" alt="last-commit">
+   <img src="https://img.shields.io/github/languages/top/XavierLeduc/mc2itrophy?style=flat&color=0080ff" alt="repo-top-language">
+   <img src="https://img.shields.io/github/languages/count/XavierLeduc/mc2itrophy?style=flat&color=0080ff" alt="repo-language-count">
 </p>
 <p align="center">
-		<em>Built with the tools and technologies:</em>
+      <em>Built with the tools and technologies:</em>
 </p>
 <p align="center">
-	<img src="https://img.shields.io/badge/Python-3776AB.svg?style=flat&logo=Python&logoColor=white" alt="Python">
+   <img src="https://img.shields.io/badge/Python-3776AB.svg?style=flat&logo=Python&logoColor=white" alt="Python">
 </p>
 
 <br>
@@ -81,7 +81,7 @@
 
 ###  Prerequisites
 
-**Python**: `version x.y.z`
+**Python**: `version >= 3.7`
 
 ###  Installation
 
