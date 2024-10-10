@@ -32,7 +32,7 @@ try:
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((getattr(By, location), element))).click()
         driver.save_screenshot(element + ".png")
     
-    time.sleep(120)
+    time.sleep(1)
 
 finally:
     driver.quit()
