@@ -20,19 +20,37 @@ chrome_prefs = {
 }
 chrome_options.add_experimental_option("prefs", chrome_prefs)
 
-
 driver = webdriver.Chrome(options=chrome_options)
-driver.get("https://www.podcastics.com/podcast/episode/le-marketing-sportif-grand-gagnant-de-lia-2-313767/")
+driver.get("https://www.podcastics.com/podcast/mc2i-podcasts/")
+
+driver.set_window_size(1920, 1080)
 
 try:
-    locations = ["CLASS_NAME", "ID", "LINK_TEXT"]
-    elements = ["fa-check", "websitePodcastHeaderLinkMore", "Download"]
+    WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CLASS_NAME, "websitePodcastEntryContentTitle")))
 
-    for location, element in zip(locations, elements):
-        WebDriverWait(driver, 10).until(EC.presence_of_element_located((getattr(By, location), element))).click()
-        driver.save_screenshot(element + ".png")
-    
-    time.sleep(1)
+    podcasts = driver.find_elements(By.CLASS_NAME, "websitePodcastEntryContentTitle")
+
+
+    for podcast in podcasts:
+        print("Podcast: ", podcast.text)
+
+        links = driver.find_elements(By.LINK_TEXT, podcast.text)
+        driver.execute_script("arguments[0].click();", links[0])
+
+        #driver.save_screenshot(podcast.text + ".png")
+
+        locations = ["CLASS_NAME", "ID", "LINK_TEXT"]
+        elements = ["fa-check", "websitePodcastHeaderLinkMore", "Download"]
+
+        for location, element in zip(locations, elements):
+            WebDriverWait(driver, 10).until(EC.presence_of_element_located((getattr(By, location), element))).click()
+            driver.save_screenshot(element + ".png")
+
+        driver.save_screenshot("fin_dl.png")
+        driver.back()
+        driver.save_screenshot("retour_accueil.png")
+
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CLASS_NAME, "websitePodcastEntryContentTitle")))
 
 finally:
     driver.quit()
