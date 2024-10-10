@@ -32,10 +32,13 @@ try:
 
 
     for podcast in podcasts:
+        print("URL actuelle : ", driver.current_url)
         print("Podcast: ", podcast.text)
 
         links = driver.find_elements(By.LINK_TEXT, podcast.text)
         driver.execute_script("arguments[0].click();", links[0])
+        print("URL actuelle : ", driver.current_url)
+
 
         #driver.save_screenshot(podcast.text + ".png")
 
@@ -47,10 +50,12 @@ try:
             driver.save_screenshot(element + ".png")
 
         driver.save_screenshot("fin_dl.png")
+        time.sleep(1)
         driver.back()
+        print("URL actuelle : ", driver.current_url)
         driver.save_screenshot("retour_accueil.png")
 
-        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CLASS_NAME, "websitePodcastEntryContentTitle")))
+        podcasts = driver.find_elements(By.CLASS_NAME, "websitePodcastEntryContentTitle")
 
 finally:
     driver.quit()
