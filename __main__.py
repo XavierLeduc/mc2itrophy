@@ -3,6 +3,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.chrome.options import Options
+from bs4 import BeautifulSoup
 import time
 import os
 
@@ -30,20 +31,27 @@ try:
 
     podcasts = driver.find_elements(By.CLASS_NAME, "websitePodcastEntryContentTitle")
 
-
-    for podcast in podcasts:
+    WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CLASS_NAME, "fa-check"))).click()
+    print("Cookies acceptés.")
+    for i in range(len(podcasts)):
+        podcasts = driver.find_elements(By.CLASS_NAME, "websitePodcastEntryContentTitle")
         print("URL actuelle : ", driver.current_url)
-        print("Podcast: ", podcast.text)
+        podcast = podcasts[i]
+        podcast_title = podcast.text
+        print("Podcast: ", podcast_title)
 
-        links = driver.find_elements(By.LINK_TEXT, podcast.text)
-        driver.execute_script("arguments[0].click();", links[0])
+        link = podcast.find_element(By.TAG_NAME, "a")
+        driver.execute_script("arguments[0].click();", link)
         print("URL actuelle : ", driver.current_url)
 
 
-        #driver.save_screenshot(podcast.text + ".png")
 
-        locations = ["CLASS_NAME", "ID", "LINK_TEXT"]
-        elements = ["fa-check", "websitePodcastHeaderLinkMore", "Download"]
+
+
+        driver.save_screenshot(podcast_title + ".png")
+
+        locations = ["ID", "LINK_TEXT"]
+        elements = ["websitePodcastHeaderLinkMore", "Download"]
 
         for location, element in zip(locations, elements):
             WebDriverWait(driver, 10).until(EC.presence_of_element_located((getattr(By, location), element))).click()
@@ -52,6 +60,8 @@ try:
         driver.save_screenshot("fin_dl.png")
         time.sleep(1)
         driver.back()
+        driver.refresh()
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CLASS_NAME, "websitePodcastEntryContentTitle")))
         print("URL actuelle : ", driver.current_url)
         driver.save_screenshot("retour_accueil.png")
 
