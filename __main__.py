@@ -3,9 +3,10 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.chrome.options import Options
-from bs4 import BeautifulSoup
 import time
 import os
+
+screenshot_dir = "/home/mc2itrophy/screenshots"
 
 download_dir = "/home/downloads"
 chrome_options = Options()
@@ -33,6 +34,8 @@ try:
 
     WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CLASS_NAME, "fa-check"))).click()
     print("Cookies acceptés.")
+
+
     for i in range(len(podcasts)):
         podcasts = driver.find_elements(By.CLASS_NAME, "websitePodcastEntryContentTitle")
         print("URL actuelle : ", driver.current_url)
@@ -44,26 +47,20 @@ try:
         driver.execute_script("arguments[0].click();", link)
         print("URL actuelle : ", driver.current_url)
 
-
-
-
-
-        driver.save_screenshot(podcast_title + ".png")
+        driver.save_screenshot(os.path.join(screenshot_dir, podcast_title + ".png"))
 
         locations = ["ID", "LINK_TEXT"]
         elements = ["websitePodcastHeaderLinkMore", "Download"]
 
         for location, element in zip(locations, elements):
             WebDriverWait(driver, 10).until(EC.presence_of_element_located((getattr(By, location), element))).click()
-            driver.save_screenshot(element + ".png")
-
-        driver.save_screenshot("fin_dl.png")
+            driver.save_screenshot(os.path.join(screenshot_dir, element + ".png"))
+        print("Téléchargement terminé et fichier disponible.")
         time.sleep(1)
         driver.back()
         driver.refresh()
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CLASS_NAME, "websitePodcastEntryContentTitle")))
-        print("URL actuelle : ", driver.current_url)
-        driver.save_screenshot("retour_accueil.png")
+        driver.save_screenshot(os.path.join(screenshot_dir, "retour_accueil.png"))
 
         podcasts = driver.find_elements(By.CLASS_NAME, "websitePodcastEntryContentTitle")
 
@@ -71,6 +68,6 @@ finally:
     driver.quit()
 
 if os.path.exists(download_dir):
-    print("Téléchargement terminé et fichier disponible.")
+    print("Tous les téléchargements sont terminés.")
 else:
     print("Téléchargement échoué ou chemin incorrect.")
